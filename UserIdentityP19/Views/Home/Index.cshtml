@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Student Management System</h1>
+
+    <p class="mt-4 lead text-muted">
+        Please <a href="/Account/Login">login</a> or <a href="/Account/Register">register</a> to access system features.
+        To access all administrative rights, sign in using valid <strong>admin credentials</strong>.
+    </p>
+
+    <div class="alert alert-warning mt-4" role="alert">
+        <h5 class="alert-heading">Test Global Exception</h5>
+        <p>Click the button below to trigger a middleware-handled exception for testing purposes:</p>
+        @Html.ActionLink("Trigger Exception", "ThrowException", null, new { @class = "btn btn-danger" })
+    </div>
+</div>

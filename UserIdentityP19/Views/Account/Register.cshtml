@@ -1,0 +1,23 @@
+﻿@model RegisterViewModel
+
+<form asp-action="Register" method="post">
+    <input asp-for="FirstName" placeholder="First Name" />
+    <span asp-validation-for="FirstName"></span>
+
+    <input asp-for="LastName" placeholder="Last Name" />
+    <span asp-validation-for="LastName"></span>
+
+    <input asp-for="Email" placeholder="Email" />
+    <span asp-validation-for="Email"></span>
+
+    <input asp-for="MobileNumber" placeholder="Mobile Number" />
+    <span asp-validation-for="MobileNumber"></span>
+
+    <input asp-for="Password" placeholder="Password" type="password" />
+    <span asp-validation-for="Password"></span>
+
+    <input asp-for="ConfirmPassword" placeholder="Confirm Password" type="password" />
+    <span asp-validation-for="ConfirmPassword"></span>
+
+    <button type="submit">Register</button>
+</form>
