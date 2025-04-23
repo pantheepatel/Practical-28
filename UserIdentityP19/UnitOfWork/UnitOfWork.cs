@@ -4,6 +4,8 @@ using ExceptionLogger.Repository.StudentRepo;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ExceptionLogger.Models;
+using CSharp13Features.Utility;
+using CSharp13Features.Models;
 
 namespace LogException.UnitOfWork
 {
@@ -29,7 +31,7 @@ namespace LogException.UnitOfWork
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<int> CompleteAsync()
+        public async Task CompleteAsync()
         {
             var entries = _context.ChangeTracker.Entries()
                 .Where(e => e.State == EntityState.Added ||
@@ -37,9 +39,10 @@ namespace LogException.UnitOfWork
                             e.State == EntityState.Deleted)
                 .ToList();
 
-            var result = await _context.SaveChangesAsync();
-
             var userId = _httpContextAccessor.HttpContext.User?.Identity?.Name;
+
+            // this will store logs
+            var logsList = new List<ConsoleLogModel>();
 
             foreach (var entry in entries)
             {
@@ -52,12 +55,13 @@ namespace LogException.UnitOfWork
                     Timestamp = DateTime.UtcNow,
                     IPAddress = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString()
                 };
-
+                logsList.Add(new ConsoleLogModel { UserId = auditLog.UserId, Entity = auditLog.Entity, Action = entry.State.ToString() });
                 await _context.AuditLogs.AddAsync(auditLog);
             }
 
+            AuditHelper.LogAuditActions(logsList);
+
             await _context.SaveChangesAsync();
-            return result;
         }
 
         public void Dispose()

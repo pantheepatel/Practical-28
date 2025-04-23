@@ -9,6 +9,6 @@ namespace LogException.UnitOfWork
         IStudentRepository Students { get; }
         IUserRepository Users { get; }
         IMapper mapper { get; }
-        Task<int> CompleteAsync();
+        Task CompleteAsync();
     }
 }
