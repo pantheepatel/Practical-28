@@ -9,31 +9,20 @@ namespace CSharp13Features.Utility
         {
             foreach (var log in logs)
             {
-                SetConsoleColor(log.Action);
-                Console.WriteLine($"[Audit] {log.Entity} - {log.Action} by {log.UserId}");
+                var colorcode = SetConsoleColor(log.Action);
+                Console.WriteLine($"{colorcode}{log.Entity} - {log.Action} by {log.UserId}");
                 Console.ResetColor();
             }
         }
-        private static void SetConsoleColor(string action)
+        private static string SetConsoleColor(string action)
         {
-            switch (action.ToLower())
+            return action.ToLower() switch
             {
-                case "added":
-                case "create":
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    break;
-                case "modified":
-                case "update":
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    break;
-                case "deleted":
-                case "delete":
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    break;
-            }
+                "added" or "create" => "\e[32m", // Green
+                "modified" or "update" => "\e[33m", // Yellow
+                "deleted" or "delete" => "\e[31m", // Red
+                _ => "\e[37m" // Gray
+            };
         }
     }
 }
