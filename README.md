@@ -1,6 +1,6 @@
-# Practical 20: Global exception handling using middleware, audit logs into database, save logs into files using serilog, implement Unit of Work pattern
+# Practical 28
 
-This project demonstrates the implementation of authorizing and controlling access and view of functions based on the role of the accessing user.
+This project demonstrates the implementation of C# 13 features into already existing project.
 
 ## Configuration
 
